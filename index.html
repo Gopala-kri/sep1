@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Bill Generator</title>
+    <style>
+        
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #container {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        #total {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Shopping Bill Generator</h1>
+        <table>
+            <tr>
+                <th>Item</th>
+                <th>Price (per unit)</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+            <!-- Add rows for items dynamically using JavaScript -->
+        </table>
+        <button onclick="addItem()">Add Item</button>
+        <p id="total">Total: $0.00</p>
+    </div>
+
+    <script>
+        
+        let total = 0; // Initialize total
+
+        function addItem() {
+            const itemName = prompt("Enter item name:");
+            const itemPrice = parseFloat(prompt("Enter item price:"));
+            const itemQuantity = parseInt(prompt("Enter item quantity:"));
+
+            if (!isNaN(itemPrice) && !isNaN(itemQuantity)) {
+                const itemTotal = itemPrice * itemQuantity;
+                total += itemTotal;
+
+                const table = document.querySelector("table");
+                const row = table.insertRow(-1);
+
+                const cell1 = row.insertCell(0);
+                const cell2 = row.insertCell(1);
+                const cell3 = row.insertCell(2);
+                const cell4 = row.insertCell(3);
+
+                cell1.innerHTML = itemName;
+                cell2.innerHTML = `$${itemPrice.toFixed(2)}`;
+                cell3.innerHTML = itemQuantity;
+                cell4.innerHTML = `$${itemTotal.toFixed(2)}`;
+
+                document.getElementById("total").textContent = `Total: $${total.toFixed(2)}`;
+            } else {
+                alert("Invalid input. Please enter valid price and quantity.");
+            }
+        }
+    </script>
+</body>
+</html>
